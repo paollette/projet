@@ -1,0 +1,88 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+header{
+    width: 100%;
+    height: 125px;
+    background-color: #E8A6D9;
+    position: relative; /* Adiciona um contexto de posicionamento para os filhos */
+}
+header nav{
+    background-color: #E8A6D9;
+    width: 100%;
+    height: 125px;
+}
+#logo img{
+    height: 100px;
+    margin: 10px 0px 10px 30px;
+    float: left;
+}
+#botao {
+    display: flex; /* Exibe os botões lado a lado */
+    align-items: center; /* Alinha verticalmente os itens no centro */
+}
+#botao a {
+    text-decoration: none;
+    color: #ffffff;
+    padding: 10px 20px;
+    margin: 0 -300px; /* Espaçamento entre os botões */
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 0%;
+    transition: background-color 0.3s ease;
+    margin-top: 25px;
+    margin-left: 300px;
+    position: relative; /* Necessário para usar o ::after */
+    display: inline-block; /* Garante que o tamanho do botão seja ajustado ao texto */
+}
+#botao a::after {
+    content: ""; /* Cria o elemento visual */
+    position: absolute;
+    bottom: 0; /* Posiciona a linha na base do texto */
+    left: 0;
+    width: 0; /* Inicialmente a linha não é visível */
+    height: 2px; /* Espessura da linha */
+    background-color: #ffffff; /* Cor da linha */
+    transition: width 0.3s ease; /* Animação de crescimento da linha */
+}
+#botao a:hover::after {
+    width: 100%; /* Expande a linha para a largura do texto */
+}
+/* Adiciona a barra vertical entre os botões */
+#botao a:not(:last-child) {
+    border-right: 2px solid #ffffff; /* Barra vertical */
+}
+/* Ajusta a altura dos botões */
+#botao a {
+    display: inline-block;
+    height: 100%;
+    line-height: 50px; /* Centraliza verticalmente o texto nos botões */
+}
+#botao1, #botao2 {
+    display: inline-block;
+}
+#botao1 img, #botao2 img {
+    height: 40px; /* Ajuste o tamanho da imagem */
+    width: 40px; /* Ajuste o tamanho da imagem */
+    margin-left: 20px; /* Espaçamento entre as imagens */
+    cursor: pointer; /* Aponta o cursor para as imagens */
+    margin-bottom: 250px;
+}
+#botao1 a, #botao2 a {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    height: 40px;
+}
+#botoes {
+    position: absolute; /* Posiciona os botões no canto superior direito */
+    top: 65px; /* Ajuste a distância do topo */
+    right: 30px; /* Ajuste a distância da direita */
+}
+#botao1 img:hover, #botao2 img:hover {
+    transform: scale(1.1); /* Aumenta um pouco a imagem ao passar o mouse */
+}

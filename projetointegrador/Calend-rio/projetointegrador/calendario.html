@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendário</title>
+
+            <link rel="stylesheet" href="style.css">
+        </head>
+        <body>
+
+<header> <!-- header rosa -->
+                <nav>
+                    <div id="logo">
+                        <a href="../../projeto-integrador/projetoint/html/home.html">
+                        <img src="../../logo.png">
+                        </a>
+                        </div>
+                        <div id="botao">
+                            <a href="../../projeto-integrador/projetoint/html/calendario.html">
+                                Calendário
+                            </a>
+                            <a href="../../projeto-integrador/projetoint/html/contas.html">
+                                Contas Salvas
+                            </a>
+                            <a href="../../projeto-integrador/projetoint/html/link.html">
+                                Sites Externos
+                            </a>
+                            <a href="../../projeto-integrador/projetoint/html/comunicados.html">
+                                Comunicados
+                            </a>
+                    </div>
+                     <div id="botoes">   
+                        <div id="botao1">
+                            <a href="../../projeto-integrador/projetoint/projetoint/html/perfil.html">
+                                <img src="../../perfil.png" alt="Perfil">
+                            </a>
+                        </div>
+                        <div id="botao2">
+                            <a href="../../projeto-integrador/projetoint/projetoint/html/config.html">
+                                <img src="../../config.png" alt="Configurações">
+                            </a>
+                        </div>
+                         </div>
+                </nav>
+                </html>
+               
+</header>
+
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+               background-color: #f4f4f9;
+               color: #333; text-align: center; }
+
+        .header { font-size: 32px;
+             font-weight: bold;
+              color: #4a4a4a;
+               margin-top: 60px; }
+
+        .botoes { display: flex; 
+            justify-content: center;
+             gap: 10px;
+              margin: 20px 0; }
+
+        .botoes button { background-color: #E8A6D9;
+             border: none;
+              color: white;
+               padding: 10px 20px;
+                cursor: pointer;
+                 border-radius: 5px;
+                  font-size: 16px;
+                   transition: background-color 0.3s; }
+
+        .botoes button:hover { background-color: #E8A6D9; }
+
+        .calendario { width: 90%;
+                     max-width: 1000px; 
+                     margin: 0 auto;
+                     border-collapse: collapse;
+                     background-color: white;
+                     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                     border-radius: 8px;
+                     overflow: hidden; }
+
+        .calendario th, .calendario td { border: 1px solid #ffc0cb;
+             padding: 10px;
+              text-align: left;
+               width: 14.28%; 
+               height: 100px;
+                position: relative; }
+
+        .calendario th { background-color: #ffe4e1;
+             font-weight: bold;
+              color: #4a4a4a; }
+
+        .calendario td { transition: background-color 0.3s; }
+
+        .calendario td:hover { background-color: #ffe4e1;
+             cursor: pointer; }
+
+        .dia-numero { position: absolute;
+             top: 5px; left: 5px;
+              font-size: 14px;
+               font-weight: bold;
+                color: #4a4a4a; }
+
+        .evento-simbolo { background-color: #E8A6D9; 
+            color: white;
+             padding: 2px 5px;
+              border-radius: 3px; 
+              margin-top: 5px;
+               display: inline-block;
+                font-size: 12px; }
+
+        .modal { display: none;
+             position: fixed; 
+             top: 50%; 
+             left: 50%;
+              transform: translate(-50%, -50%);
+              background-color: white; 
+              padding: 20px;
+               box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+               border-radius: 8px; 
+               width: 300px; 
+               text-align: left; }
+               
+        .modal.open { display: block; }
+        .modal input, .modal textarea { width: 100%; padding: 10px; margin: 5px 0; border: 1px solid #ffc0cb; border-radius: 5px; font-size: 14px; }
+
+        .modal button { background-color: #E8A6D9; border: none; color: white; padding: 10px 20px; cursor: pointer; border-radius: 5px; font-size: 16px; width: 100%; margin-top: 10px; transition: background-color 0.3s; }
+        .modal button:hover { background-color: #E8A6D9; }
+        .notificacao { display: none; position: fixed; top: 10px; right: 10px; background-color: #5bc25f; color: white; padding: 15px; border-radius: 5px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); }
+        .notificacao.show { display: block; }
+    </style>
+</head>
+<body>
+    <div class="header" id="header"></div>
+    <div class="botoes">
+        <button onclick="voltarMes()">Voltar</button>
+        <button onclick="avancarMes()">Avançar</button>
+    </div>
+    <table class="calendario" id="calendario">
+        <thead>
+            <tr>
+                <th>Domingo</th>
+                <th>Segunda-feira</th>
+                <th>Terça-feira</th>
+                <th>Quarta-feira</th>
+                <th>Quinta-feira</th>
+                <th>Sexta-feira</th>
+                <th>Sábado</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Dias do calendário são gerados dinamicamente -->
+        </tbody>
+    </table>
+
+    <div class="modal" id="modal">
+        <h2>Gerenciar Evento</h2>
+        <div id="info-evento"></div>
+        <input type="text" id="titulo" placeholder="Título do Evento">
+        <textarea id="descricao" placeholder="Descrição do Evento"></textarea>
+        <button onclick="salvarEvento()">Salvar</button>
+        <button onclick="fecharModal()">Cancelar</button>
+    </div>
+
+    <div class="notificacao" id="notificacao">Evento adicionado com sucesso!</div>
+
+    <script>
+        let mesAtual = new Date().getMonth();
+        let anoAtual = new Date().getFullYear();
+        let eventos = {};
+
+        const meses = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+
+        function gerarCalendario(mes, ano) {
+            const calendarioBody = document.getElementById('calendario').getElementsByTagName('tbody')[0];
+            const header = document.getElementById('header');
+            calendarioBody.innerHTML = '';
+            header.innerText = `${meses[mes]} de ${ano}`;
+            const primeiroDia = new Date(ano, mes).getDay();
+            const ultimoDia = new Date(ano, mes + 1, 0).getDate();
+
+            let data = 1;
+            for (let i = 0; i < 6; i++) {
+                const row = document.createElement('tr');
+
+                for (let j = 0; j < 7; j++) {
+                    if (i === 0 && j < primeiroDia) {
+                        const cell = document.createElement('td');
+                        row.appendChild(cell);
+                    } else if (data > ultimoDia) {
+                        break;
+                    } else {
+                        const cell = document.createElement('td');
+                        const cellKey = `${ano}-${mes + 1}-${data}`;  // Chave única para cada dia
+                        cell.onclick = () => abrirModal(data, mes + 1, ano);
+
+                        const cellText = document.createTextNode(data);
+                        const diaNumero = document.createElement('div');
+                        diaNumero.className = 'dia-numero';
+                        diaNumero.appendChild(cellText);
+                        cell.appendChild(diaNumero);
+
+                        // Exibe o título do evento na célula
+                        if (eventos[cellKey]) {
+                            const eventoSimbolo = document.createElement('div');
+                            eventoSimbolo.className = 'evento-simbolo';
+                            eventoSimbolo.innerText = eventos[cellKey].titulo;  // Exibe o título do evento
+                            cell.appendChild(eventoSimbolo);
+                        }
+
+                        row.appendChild(cell);
+                        data++;
+                    }
+                }
+
+                calendarioBody.appendChild(row);
+            }
+        }
+
+        function avancarMes() {
+            mesAtual++;
+            if (mesAtual > 11) {
+                mesAtual = 0;
+                anoAtual++;
+            }
+            gerarCalendario(mesAtual, anoAtual);
+        }
+
+        function voltarMes() {
+            mesAtual--;
+            if (mesAtual < 0) {
+                mesAtual = 11;
+                anoAtual--;
+            }
+            gerarCalendario(mesAtual, anoAtual);
+        }
+
+        function abrirModal(dia, mes, ano) {
+            const modal = document.getElementById('modal');
+            const infoEvento = document.getElementById('info-evento');
+            const key = `${ano}-${mes}-${dia}`;
+            if (eventos[key]) {
+                infoEvento.innerText = `Evento: ${eventos[key].titulo}`;
+            } else {
+                infoEvento.innerText = "Não existe evento marcado nessa data";
+            }
+            modal.classList.add('open');
+            document.getElementById('titulo').value = '';
+            document.getElementById('descricao').value = '';
+            modal.dataset.dia = dia;
+            modal.dataset.mes = mes;
+            modal.dataset.ano = ano;
+        }
+
+        function fecharModal() {
+            document.getElementById('modal').classList.remove('open');
+        }
+
+        function salvarEvento() {
+            const dia = document.getElementById('modal').dataset.dia;
+            const mes = document.getElementById('modal').dataset.mes;
+            const ano = document.getElementById('modal').dataset.ano;
+            const titulo = document.getElementById('titulo').value;
+            const descricao = document.getElementById('descricao').value;
+
+            const key = `${ano}-${mes}-${dia}`;
+            eventos[key] = { titulo, descricao };
+
+            fecharModal();
+            gerarCalendario(mesAtual, anoAtual);
+            mostrarNotificacao();
+        }
+
+        function mostrarNotificacao() {
+            const notificacao = document.getElementById('notificacao');
+            notificacao.classList.add('show');
+            setTimeout(() => {
+                notificacao.classList.remove('show');
+            }, 3000);
+        }
+
+        gerarCalendario(mesAtual, anoAtual);
+    </script>
+</body>
+</html>
